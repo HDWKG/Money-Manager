@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomePage(),
     );
   }
@@ -37,8 +38,8 @@ class _HomePageState extends State<HomePage> {
 
   // List of pages for navigation
   final List<Widget> _pages = [
-    ModifySheetsPage(),
     CreateSheetsPage(),
+    ModifySheetsPage(),
   ];
 
   void _onItemTapped(int index) {
