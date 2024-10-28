@@ -25,20 +25,20 @@ class _UserFormWidgetState extends State<UserFormWidget> {
   String? selectedCategory;
 
   final List<String> methods = [
-    'BCA',
     'Jago',
+    'BCA',
     'Cash',
     'GoPay',
     'ShopeePay',
     'Stockbit',
     'Bibit'
   ];
-  final List<String> types = ['Income', 'Expense'];
+  final List<String> types = ['Expense','Income'];
   final List<String> categories = [
+    'Food & Drinks',
     'Entertainment',
     'Travel',
     'Shopping',
-    'Food & Drinks',
     'Others'
   ];
 
