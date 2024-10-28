@@ -47,6 +47,18 @@ class DataApi {
     }
   }
 
+  static Future<List<User>> getAll() async {
+    if (_userSheet == null) return [];
+    final data = await _userSheet!.values.map.allRows();
+    return data == null ? [] : data.map(User.fromjson).toList();
+  }
+
+  static Future<User?> getById(int id) async {
+    if (_userSheet == null) return null;
+    final json = await _userSheet!.values.map.rowByKey(id, fromColumn: 1);
+    return json == null ? null : User.fromjson(json);
+  }
+
   static Future insert(List<Map<String, dynamic>> rowList) async {
     if (_userSheet == null) return;
     _userSheet!.values.map.appendRows(rowList);
@@ -56,5 +68,24 @@ class DataApi {
     if (_userSheet == null) return 0;
     final lastRow = await _userSheet!.values.lastRow();
     return lastRow == null ? 0 : int.tryParse(lastRow.first) ?? 0;
+  }
+
+  static Future<bool> update(int id, Map<String, dynamic> data) async {
+    if (_userSheet == null) return false;
+    return _userSheet!.values.map.insertRowByKey(id, data);
+  }
+
+  static Future<bool> updateCell(
+      {required int id, required String key, required dynamic value}) async {
+    if (_userSheet == null) return false;
+    return _userSheet!.values
+        .insertValueByKeys(value, columnKey: key, rowKey: id);
+  }
+
+  static Future<bool> deleteById(int id) async {
+    if (_userSheet == null) return false;
+    final index = await _userSheet!.values.rowIndexOf(id);
+    if (index == -1) return false;
+    return _userSheet!.deleteRow(index);
   }
 }

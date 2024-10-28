@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserFields {
   static final String date = 'Date';
   static final String id = 'id';
@@ -45,6 +47,29 @@ class User {
           type: type ?? this.type,
           total: total ?? this.total,
           category: category ?? this.category);
+
+  static User fromjson(Map<String, dynamic> json) => User(
+        id: json[UserFields.id] != null
+            ? int.tryParse(json[UserFields.id].toString())
+            : null,
+        name: json[UserFields.name],
+        method: json[UserFields.method],
+        type: json[UserFields.type],
+        total: int.tryParse(json[UserFields.total]?.toString() ?? '0') ?? 0,
+        category: json[UserFields.category],
+        date: fromExcelSerial(stringToDouble(json[UserFields.date])),
+      );
+  static DateTime fromExcelSerial(double serial) {
+    return DateTime(1899, 12, 30).add(Duration(days: serial.toInt()));
+  }
+
+  static double stringToDouble(String dateString) {
+  try {
+    return double.parse(dateString);
+  } catch (e) {
+    return 0;
+  }
+}
 
   Map<String, dynamic> toJson() => {
         UserFields.date: date.toIso8601String(),
