@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserFields {
   static final String date = 'Date';
   static final String id = 'id';

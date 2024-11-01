@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mon/api/sheets/data_sheets_api.dart';
 import 'package:mon/page/create.dart';
 import 'package:mon/page/modify.dart';
+import 'package:mon/page/setting.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     CreateSheetsPage(),
     ModifySheetsPage(),
+    SettingsPage()
   ];
 
   void _onItemTapped(int index) {
@@ -55,12 +57,16 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Create Sheets',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.edit),
             label: 'Modify Sheets',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Create Sheets',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex, 

@@ -3,15 +3,17 @@ import 'package:mon/api/sheets/data_sheets_api.dart';
 import 'package:mon/widget/user_form_widget.dart';
 
 class CreateSheetsPage extends StatelessWidget {
+  const CreateSheetsPage({super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text("Mon"),
+          title: const Text("Mon"),
           centerTitle: true,
         ),
         body: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: SingleChildScrollView(
             child: UserFormWidget(
               onSavedUser: (data) async {
@@ -23,14 +25,14 @@ class CreateSheetsPage extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Success'),
-                    content: Text('Data inserted successfully!'),
+                    title: const Text('Success'),
+                    content: const Text('Data inserted successfully!'),
                     actions: [
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop(); // Close the dialog
                         },
-                        child: Text('OK'),
+                        child: const Text('OK'),
                       ),
                     ],
                   ),
