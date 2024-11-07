@@ -58,13 +58,12 @@ class PieChartWidget extends StatelessWidget {
               ),
               PieChart(PieChartData(
                 sections: pieChartData.entries.map((entry) {
-                  double percentage = (entry.value / totalValue) * 100;
                   return PieChartSectionData(
                     value: entry.value,
-                    title: '', // Display category and percentage
+                    title: '',
                     color: _getColorForCategory(
-                        entry.key), // Customize color based on category
-                    radius: 30, // Adjust the radius as needed
+                        entry.key),
+                    radius: 30,
                   );
                 }).toList(),
               )),
