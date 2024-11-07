@@ -149,4 +149,36 @@ class DataApi {
     if (index == -1) return false;
     return _userSheet!.deleteRow(index);
   }
+
+  static Future<Map<String, double>> getPieChartData() async {
+    List<User> users = await getAll(); // Fetch all users
+    print('Fetched users: $users'); // Debugging line
+    Map<String, double> pieChartData = {};
+
+    for (var user in users) {
+      String category =
+          user.category ?? 'Unknown'; // Default to 'Unknown' if null
+      double total = user.total?.toDouble() ?? 0.0; // Default to 0.0 if null
+
+      // Accumulate the totals by category
+      if (pieChartData.containsKey(category)) {
+        pieChartData[category] = pieChartData[category]! + total;
+      } else {
+        pieChartData[category] = total;
+      }
+    }
+
+    return pieChartData; // Return the map of category totals
+  }
+
+  static Future<String> getTotal() async {
+    final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
+    final temp = await _getWorkSheet(spreadsheet, title: _activeTab);
+    final cellValue = await temp!.values.row(1, fromColumn: 9);
+
+    if (cellValue.isNotEmpty) {
+      return _activeTab = cellValue[0] as String;
+    }
+    return '';
+  }
 }
