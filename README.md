@@ -106,13 +106,12 @@ To connect your application to Google Sheets, you will need to add your Google s
 
 ---
 
+### 8. **Additional steps to the Project**
+
+1. Create a tab named Settings in your Google Spreadsheet.
+2. In cell A1 of the Settings tab, enter the name of the first new tab you want to create, for example, Nov24.
+
 ## Additional Notes:
 
 - If you need to regenerate your Google service account credentials, follow the [official Google Cloud documentation](https://cloud.google.com/docs/authentication/getting-started) to create a new service account and download the JSON key.
 - You can update the `spreadsheetId` if you need to switch to a different Google Sheets document.
-
-
-### 8. **Initializing the Project**
-
-1. Create a tab named Settings in your Google Spreadsheet.
-2. In cell A1 of the Settings tab, enter the name of the first new tab you want to create, for example, Nov24.
