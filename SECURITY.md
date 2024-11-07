@@ -1,16 +1,4 @@
 # Security Policy
-
-## Supported Versions
-
-This project provides security updates for the following versions:
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
-
 ## Reporting a Vulnerability
 
 If you discover a security vulnerability, we encourage you to report it to us as soon as possible. Here's how to report a vulnerability:
