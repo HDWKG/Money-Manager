@@ -5,8 +5,8 @@ import 'package:mon/model/user.dart';
 class DataApi {
   static String _activeTab = 'Data';
   static String? activeTab;
-   static final _credetials = Config.credentials;
-  static final _spreadsheetId = Config.spreadsheetId; 
+   static const _credetials = Config.credentials;
+  static const _spreadsheetId = Config.spreadsheetId; 
   static final _gsheets = GSheets(_credetials);
   static Worksheet? _userSheet;
 
@@ -36,7 +36,7 @@ class DataApi {
       final activeTab = cellValue.isNotEmpty ? cellValue[0] : null;
 
       if (activeTab != null) {
-        _activeTab = activeTab as String;
+        _activeTab = activeTab;
         _initializeUserSheet();
         print('Active Tab: $_activeTab');
       }
@@ -51,7 +51,7 @@ class DataApi {
     final cellValue = await temp!.values.row(1, fromColumn: 1);
 
     if (cellValue.isNotEmpty) {
-      return _activeTab = cellValue[0] as String;
+      return _activeTab = cellValue[0];
     }
     return '';
   }
@@ -146,7 +146,7 @@ class DataApi {
     // Only include entries where Type is "Expense"
     if (user.type == "Expense") {
       String category = user.category ?? 'Unknown'; 
-      double total = user.total?.toDouble() ?? 0.0; 
+      double total = user.total.toDouble() ?? 0.0; 
 
       if (pieChartData.containsKey(category)) {
         pieChartData[category] = pieChartData[category]! + total;

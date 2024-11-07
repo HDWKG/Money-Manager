@@ -5,6 +5,8 @@ import 'package:mon/model/user.dart';
 import 'package:mon/widget/chart_widget.dart';
 
 class ViewAllPage extends StatefulWidget {
+  const ViewAllPage({super.key});
+
   @override
   _ViewAllPageState createState() => _ViewAllPageState();
 }
@@ -75,7 +77,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('View All Entries'),
+        title: const Text('View All Entries'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -86,11 +88,11 @@ class _ViewAllPageState extends State<ViewAllPage> {
                 future: _pieChartDataFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No data found.'));
+                    return const Center(child: Text('No data found.'));
                   }
                   return PieChartWidget(pieChartData: snapshot.data!);
                 },
@@ -100,11 +102,11 @@ class _ViewAllPageState extends State<ViewAllPage> {
               future: _usersFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No data found.'));
+                  return const Center(child: Text('No data found.'));
                 }
 
                 final users = _sortUsers(snapshot.data!);
@@ -122,7 +124,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('ID'),
                               child: Row(
                                 children: [
-                                  Text('ID'),
+                                  const Text('ID'),
                                   if (_currentSortColumn == 'ID')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -134,7 +136,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('Name'),
                               child: Row(
                                 children: [
-                                  Text('Name'),
+                                  const Text('Name'),
                                   if (_currentSortColumn == 'Name')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -146,7 +148,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('Method'),
                               child: Row(
                                 children: [
-                                  Text('Method'),
+                                  const Text('Method'),
                                   if (_currentSortColumn == 'Method')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -158,7 +160,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('Type'),
                               child: Row(
                                 children: [
-                                  Text('Type'),
+                                  const Text('Type'),
                                   if (_currentSortColumn == 'Type')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -170,7 +172,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('Total'),
                               child: Row(
                                 children: [
-                                  Text('Total'),
+                                  const Text('Total'),
                                   if (_currentSortColumn == 'Total')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -182,7 +184,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('Category'),
                               child: Row(
                                 children: [
-                                  Text('Category'),
+                                  const Text('Category'),
                                   if (_currentSortColumn == 'Category')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -194,7 +196,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               onTap: () => _onSortColumn('Date'),
                               child: Row(
                                 children: [
-                                  Text('Date'),
+                                  const Text('Date'),
                                   if (_currentSortColumn == 'Date')
                                     Icon(_isAscending ? Icons.arrow_upward : Icons.arrow_downward),
                                 ],
@@ -209,22 +211,22 @@ class _ViewAllPageState extends State<ViewAllPage> {
                             DataCell(Text(user.method ?? 'N/A')),
                             DataCell(Text(user.type ?? 'N/A')),
                             DataCell(Text(
-                              'Rp ${NumberFormat("#,##0").format(user.total?.toDouble() ?? 0)}',
-                              style: TextStyle(fontWeight: FontWeight.normal),
+                              'Rp ${NumberFormat("#,##0").format(user.total.toDouble() ?? 0)}',
+                              style: const TextStyle(fontWeight: FontWeight.normal),
                             )),
                             DataCell(Text(user.category ?? 'N/A')),
-                            DataCell(Text(user.date?.toIso8601String() ?? 'N/A')),
+                            DataCell(Text(user.date.toIso8601String() ?? 'N/A')),
                           ]);
                         }).toList(),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     if (totalPages > 1)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.arrow_back),
+                            icon: const Icon(Icons.arrow_back),
                             onPressed: currentPage > 1
                                 ? () {
                                     setState(() {
@@ -235,7 +237,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                           ),
                           Text('$currentPage/$totalPages'),
                           IconButton(
-                            icon: Icon(Icons.arrow_forward),
+                            icon: const Icon(Icons.arrow_forward),
                             onPressed: currentPage < totalPages
                                 ? () {
                                     setState(() {

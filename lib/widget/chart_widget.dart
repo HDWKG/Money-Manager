@@ -7,9 +7,9 @@ class PieChartWidget extends StatefulWidget {
   final Map<String, double> pieChartData;
 
   const PieChartWidget({
-    Key? key,
+    super.key,
     required this.pieChartData, // Accept dynamic data
-  }) : super(key: key);
+  });
 
   @override
   _PieChartWidgetState createState() => _PieChartWidgetState();
@@ -41,21 +41,21 @@ class _PieChartWidgetState extends State<PieChartWidget> {
                 future: _totalFuture, // Use cached future
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator(); // Show loading indicator
+                    return const CircularProgressIndicator(); // Show loading indicator
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
                     return Text.rich(
                       TextSpan(
                         text: 'Total\n',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                         children: <TextSpan>[
                           TextSpan(
                             text:
                                 'Rp. ${NumberFormat("#,##0").format(double.tryParse(snapshot.data.toString()) ?? 0)}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.normal,
                             ),
                           ),
@@ -64,7 +64,7 @@ class _PieChartWidgetState extends State<PieChartWidget> {
                       textAlign: TextAlign.center,
                     );
                   } else {
-                    return Text('No data available');
+                    return const Text('No data available');
                   }
                 },
               ),
@@ -96,10 +96,10 @@ class _PieChartWidgetState extends State<PieChartWidget> {
                       height: 20,
                       color: _getColorForCategory(entry.key),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       '${entry.key}: ${percentage.toStringAsFixed(1)}%',
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ],
                 ),

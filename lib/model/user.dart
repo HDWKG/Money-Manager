@@ -1,11 +1,11 @@
 class UserFields {
-  static final String date = 'Date';
-  static final String id = 'id';
-  static final String name = 'Name';
-  static final String method = 'Method';
-  static final String type = 'Type';
-  static final String total = 'Total';
-  static final String category = 'Category';
+  static const String date = 'Date';
+  static const String id = 'id';
+  static const String name = 'Name';
+  static const String method = 'Method';
+  static const String type = 'Type';
+  static const String total = 'Total';
+  static const String category = 'Category';
 
   static List<String> getFields() =>
       [id, name, method, type, total, category, date];

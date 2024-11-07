@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
 
   // List of pages for navigation
   final List<Widget> _pages = [
-    CreateSheetsPage(),
-    ModifySheetsPage(),
+    const CreateSheetsPage(),
+    const ModifySheetsPage(),
     SettingsPage(),
     ViewAllPage()
   ];

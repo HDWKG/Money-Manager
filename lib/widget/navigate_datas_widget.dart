@@ -6,11 +6,11 @@ class NavigateDatasWidget extends StatefulWidget {
   final VoidCallback onClickedNext;
 
   const NavigateDatasWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.onClickedPrevious,
     required this.onClickedNext,
-  }) : super(key: key);
+  });
 
   @override
   _NavigateDatasWidgetState createState() => _NavigateDatasWidgetState();
@@ -23,16 +23,16 @@ class _NavigateDatasWidgetState extends State<NavigateDatasWidget> {
         children: [
           IconButton(
             onPressed: widget.onClickedPrevious,
-            icon: Icon(Icons.navigate_before),
+            icon: const Icon(Icons.navigate_before),
             iconSize: 48,
           ),
           Text(
             widget.text,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           IconButton(
             onPressed: widget.onClickedNext,
-            icon: Icon(Icons.navigate_next),
+            icon: const Icon(Icons.navigate_next),
             iconSize: 48,
           ),
         ],

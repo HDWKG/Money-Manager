@@ -3,6 +3,8 @@ import 'package:mon/api/sheets/data_sheets_api.dart';
 import 'package:mon/widget/button_widget.dart';
 
 class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
+
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -34,14 +36,14 @@ class _SettingsPageState extends State<SettingsPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Please enter a tab name or select from the dropdown.'),
+          title: const Text('Error'),
+          content: const Text('Please enter a tab name or select from the dropdown.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -54,14 +56,14 @@ class _SettingsPageState extends State<SettingsPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Success'),
-          content: Text('Data edited successfully!'),
+          title: const Text('Success'),
+          content: const Text('Data edited successfully!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -70,14 +72,14 @@ class _SettingsPageState extends State<SettingsPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
-          content: Text('Data Not Written!'),
+          title: const Text('Error'),
+          content: const Text('Data Not Written!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -97,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           children: [
             DropdownButtonFormField<String>(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: 'Select Worksheet', border: OutlineInputBorder()),
               value: _selectedTab,
               onChanged: (newValue) {
@@ -113,24 +115,24 @@ class _SettingsPageState extends State<SettingsPage> {
                 );
               }).toList(),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // TextField for entering a new tab name
             TextFormField(
               controller: _tabController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: 'Name', border: OutlineInputBorder()),
               validator: (value) => value != null && value.isEmpty
                   ? 'Enter A New Tab Name'
                   : null,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ButtonWidget(text: "Save", onClicked: _saveTab),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             FutureBuilder<String>(
               future: DataApi.getActiveTab(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator(); // Show loading indicator while fetching
+                  return const CircularProgressIndicator(); // Show loading indicator while fetching
                 } else if (snapshot.hasError) {
                   return Text("Error: ${snapshot.error}"); // Handle error
                 } else {

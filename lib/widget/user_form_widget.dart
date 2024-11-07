@@ -7,8 +7,7 @@ class UserFormWidget extends StatefulWidget {
   final User? data;
   final ValueChanged<User> onSavedUser;
 
-  const UserFormWidget({Key? key, required this.onSavedUser, this.data})
-      : super(key: key);
+  const UserFormWidget({super.key, required this.onSavedUser, this.data});
 
   @override
   State<UserFormWidget> createState() => _UserFormWidgetState();
@@ -66,14 +65,14 @@ class _UserFormWidgetState extends State<UserFormWidget> {
   Widget buildName() => TextFormField(
         controller: controllerName,
         decoration:
-            InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
+            const InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
         validator: (value) =>
             value != null && value.isEmpty ? 'Enter Name' : null,
       );
 
   Widget buildMethod() => DropdownButtonFormField<String>(
         decoration:
-            InputDecoration(labelText: 'Method', border: OutlineInputBorder()),
+            const InputDecoration(labelText: 'Method', border: OutlineInputBorder()),
         value: selectedMethod,
         items: methods.map((method) {
           return DropdownMenuItem(
@@ -87,7 +86,7 @@ class _UserFormWidgetState extends State<UserFormWidget> {
 
   Widget buildType() => DropdownButtonFormField<String>(
         decoration:
-            InputDecoration(labelText: 'Type', border: OutlineInputBorder()),
+            const InputDecoration(labelText: 'Type', border: OutlineInputBorder()),
         value: selectedType,
         items: types.map((type) {
           return DropdownMenuItem(
@@ -121,7 +120,7 @@ class _UserFormWidgetState extends State<UserFormWidget> {
     return TextFormField(
       controller: controllerTotal,
       decoration:
-          InputDecoration(labelText: 'Total', border: OutlineInputBorder()),
+          const InputDecoration(labelText: 'Total', border: OutlineInputBorder()),
       keyboardType: TextInputType.number,
       validator: (value) =>
           value != null && value.isEmpty ? 'Enter Total' : null,
@@ -133,7 +132,7 @@ class _UserFormWidgetState extends State<UserFormWidget> {
   }
 
   Widget buildCategory() => DropdownButtonFormField<String>(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             labelText: 'Category', border: OutlineInputBorder()),
         value: selectedCategory,
         items: categories.map((category) {
@@ -163,7 +162,7 @@ class _UserFormWidgetState extends State<UserFormWidget> {
             if (cleanTotalText.isEmpty) {
               // You can show an error or handle this case as needed
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Total cannot be empty')),
+                const SnackBar(content: Text('Total cannot be empty')),
               );
               return;
             }

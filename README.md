@@ -52,16 +52,65 @@ If you don't already have a Google Cloud Platform (GCP) account, follow these st
 3. Add the service account email (e.g., `gsheets@excample.iam.gserviceaccount.com`) and grant **Editor** access.
 4. Click **Send**.
 
-### 7. **Adding Your Credentials**
+# Project Setup
 
-1. Open the folder `lib/api/sheets` in your project directory.
-2. You will find a file called `config.dart`.
-3. In the `config.dart` file, find the comment `INSERT JSON FILE HERE`. 
-   - **Copy & paste** the contents of your downloaded JSON key into this section.
-4. Next, locate the `INSERT SPREADSHEET ID` section.
-   - Replace the placeholder value in the `__spreadsheetId` variable with your actual Google Sheets ID (the part of the Google Sheets URL after `/d/` and before `/edit`). For example:
-     - Google Sheets URL: `https://docs.google.com/spreadsheets/d/your-spreadsheet-id/edit`
-     - `spreadsheetId = 'your-spreadsheet-id'`
+## 7. **Adding Your Credentials**
+
+To connect your application to Google Sheets, you will need to add your Google service account credentials and the Google Sheets ID.
+
+### Steps:
+
+1. **Create the `config.dart` File:**
+   - Navigate to the folder `lib/api/sheets` in your project directory.
+   - Create a new file named `config.dart`.
+
+2. **Add the `Config` Class:**
+   - Copy and paste the following code into `config.dart`:
+
+     ```dart
+     class Config {
+       static const String credentials = r'''
+       INSERT YOUR JSON CREDENTIALS FILE HERE
+       ''';
+       static const String spreadsheetId = "INSERT YOUR SPREADSHEET ID HERE";
+     }
+     ```
+
+3. **Insert Your JSON Credentials:**
+   - In the `config.dart` file, find the comment `INSERT YOUR JSON CREDENTIALS FILE HERE`.
+   - Copy the contents of your downloaded **Google Service Account JSON key** and paste it in place of the comment. The JSON should look similar to this:
+
+     ```json
+     {
+       "type": "service_account",
+       "project_id": "your-project-id",
+       "private_key_id": "your-private-key-id",
+       "private_key": "your-private-key",
+       ...
+     }
+     ```
+
+4. **Insert Your Google Sheets ID:**
+   - Find the comment `INSERT YOUR SPREADSHEET ID HERE` in the `config.dart` file.
+   - Replace it with your actual **Google Sheets ID**. You can find the ID in the URL of your Google Sheets document:
+
+     - Example URL: `https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID/edit`
+     - Extract the ID (the part between `/d/` and `/edit`), and replace the placeholder with it like so:
+
+     ```dart
+     static const String spreadsheetId = "YOUR_SPREADSHEET_ID";
+     ```
+
+5. **Keep `config.dart` Secure:**
+   - Since this file contains sensitive information (like your service account credentials), you should **never** commit it to a public repository. Make sure to add it to your `.gitignore` file to prevent accidental uploads to GitHub.
+
+---
+
+## Additional Notes:
+
+- If you need to regenerate your Google service account credentials, follow the [official Google Cloud documentation](https://cloud.google.com/docs/authentication/getting-started) to create a new service account and download the JSON key.
+- You can update the `spreadsheetId` if you need to switch to a different Google Sheets document.
+
 
 ### 8. **Initializing the Project**
 
