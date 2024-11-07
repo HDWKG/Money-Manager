@@ -54,7 +54,7 @@ If you don't already have a Google Cloud Platform (GCP) account, follow these st
 
 ### 7. **Adding Your Credentials**
 
-1. Open the folder `api/sheets` in your project directory.
+1. Open the folder `lib/api/sheets` in your project directory.
 2. You will find a file called `config.dart`.
 3. In the `config.dart` file, find the comment `INSERT JSON FILE HERE`. 
    - **Copy & paste** the contents of your downloaded JSON key into this section.
