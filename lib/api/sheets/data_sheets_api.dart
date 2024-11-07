@@ -151,25 +151,26 @@ class DataApi {
   }
 
   static Future<Map<String, double>> getPieChartData() async {
-    List<User> users = await getAll(); // Fetch all users
-    print('Fetched users: $users'); // Debugging line
-    Map<String, double> pieChartData = {};
+  List<User> users = await getAll(); 
+  print('Fetched users: $users'); 
+  Map<String, double> pieChartData = {};
 
-    for (var user in users) {
-      String category =
-          user.category ?? 'Unknown'; // Default to 'Unknown' if null
-      double total = user.total?.toDouble() ?? 0.0; // Default to 0.0 if null
+  for (var user in users) {
+    // Only include entries where Type is "Expense"
+    if (user.type == "Expense") {
+      String category = user.category ?? 'Unknown'; 
+      double total = user.total?.toDouble() ?? 0.0; 
 
-      // Accumulate the totals by category
       if (pieChartData.containsKey(category)) {
         pieChartData[category] = pieChartData[category]! + total;
       } else {
         pieChartData[category] = total;
       }
     }
-
-    return pieChartData; // Return the map of category totals
   }
+  return pieChartData; 
+}
+
 
   static Future<String> getTotal() async {
     final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);

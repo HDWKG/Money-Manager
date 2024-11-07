@@ -71,12 +71,14 @@ class _HomePageState extends State<HomePage> {
             label: 'Settings',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.money),
+            icon: Icon(Icons.account_balance_wallet_rounded),
             label: 'View',
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+        selectedItemColor: Colors.deepPurple,
+        unselectedItemColor: Colors.grey,
       ),
     );
   }

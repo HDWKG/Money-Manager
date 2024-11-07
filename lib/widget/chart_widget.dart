@@ -34,22 +34,22 @@ class PieChartWidget extends StatelessWidget {
                   } else if (snapshot.hasData) {
                     return Text.rich(
                       TextSpan(
-                        text: 'Total\n', // Bold "Total"
+                        text: 'Total\n',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                         children: <TextSpan>[
                           TextSpan(
                             text:
-                                'Rp. ${NumberFormat("#,##0").format(double.tryParse(snapshot.data.toString()) ?? 0)}', // Convert to double and format
+                                'Rp. ${NumberFormat("#,##0").format(double.tryParse(snapshot.data.toString()) ?? 0)}',
                             style: TextStyle(
                               fontWeight: FontWeight
-                                  .normal, // Normal weight for the data
+                                  .normal,
                             ),
                           ),
                         ],
                       ),
-                      textAlign: TextAlign.center, // Center the text
+                      textAlign: TextAlign.center,
                     );
                   } else {
                     return Text('No data available');
@@ -70,7 +70,6 @@ class PieChartWidget extends StatelessWidget {
             ],
           ),
         ),
-        // Legends on the right
         Expanded(
           flex: 2,
           child: Column(
@@ -82,14 +81,14 @@ class PieChartWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      width: 20,
+                      width: 15,
                       height: 20,
                       color: _getColorForCategory(entry.key),
                     ),
                     SizedBox(width: 8),
                     Text(
                       '${entry.key}: ${percentage.toStringAsFixed(1)}%',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ],
                 ),
