@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mon/api/sheets/data_sheets_api.dart';
 
-class PieChartWidget extends StatelessWidget {
+class PieChartWidget extends StatefulWidget {
   final Map<String, double> pieChartData;
 
   const PieChartWidget({
@@ -12,9 +12,22 @@ class PieChartWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _PieChartWidgetState createState() => _PieChartWidgetState();
+}
+
+class _PieChartWidgetState extends State<PieChartWidget> {
+  late Future<String> _totalFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _totalFuture = DataApi.getTotal(); // Fetch total value once
+  }
+
+  @override
   Widget build(BuildContext context) {
     double totalValue =
-        pieChartData.values.fold(0.0, (sum, value) => sum + value);
+        widget.pieChartData.values.fold(0.0, (sum, value) => sum + value);
 
     return Row(
       children: [
@@ -25,7 +38,7 @@ class PieChartWidget extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               FutureBuilder<String>(
-                future: DataApi.getTotal(), // Fetch data from cell I1
+                future: _totalFuture, // Use cached future
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return CircularProgressIndicator(); // Show loading indicator
@@ -43,8 +56,7 @@ class PieChartWidget extends StatelessWidget {
                             text:
                                 'Rp. ${NumberFormat("#,##0").format(double.tryParse(snapshot.data.toString()) ?? 0)}',
                             style: TextStyle(
-                              fontWeight: FontWeight
-                                  .normal,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ],
@@ -57,12 +69,11 @@ class PieChartWidget extends StatelessWidget {
                 },
               ),
               PieChart(PieChartData(
-                sections: pieChartData.entries.map((entry) {
+                sections: widget.pieChartData.entries.map((entry) {
                   return PieChartSectionData(
                     value: entry.value,
                     title: '',
-                    color: _getColorForCategory(
-                        entry.key),
+                    color: _getColorForCategory(entry.key),
                     radius: 30,
                   );
                 }).toList(),
@@ -74,7 +85,7 @@ class PieChartWidget extends StatelessWidget {
           flex: 2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: pieChartData.entries.map((entry) {
+            children: widget.pieChartData.entries.map((entry) {
               double percentage = (entry.value / totalValue) * 100;
               return Padding(
                 padding: const EdgeInsets.all(4.0),

@@ -173,13 +173,14 @@ class DataApi {
 
 
   static Future<String> getTotal() async {
-    final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
-    final temp = await _getWorkSheet(spreadsheet, title: _activeTab);
-    final cellValue = await temp!.values.row(1, fromColumn: 9);
+  final spreadsheet = await _gsheets.spreadsheet(_spreadsheetId);
+  final temp = await _getWorkSheet(spreadsheet, title: _activeTab);
+  final cellValue = await temp!.values.row(1, fromColumn: 9);
 
-    if (cellValue.isNotEmpty) {
-      return _activeTab = cellValue[0] as String;
-    }
-    return '';
+  if (cellValue.isNotEmpty) {
+    return cellValue[0].toString(); // Return as string
   }
+  return '0'; // Ensure it returns a valid value, even if empty
+}
+
 }
