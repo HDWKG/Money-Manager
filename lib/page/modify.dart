@@ -93,12 +93,21 @@ class _ModifySheetsPageState extends State<ModifySheetsPage> {
         )
       ]);
 
-  Future deleteUser() async {
+  Future<void> deleteUser() async {
     final data = datas[index];
 
     await DataApi.deleteById(data.id!);
-    final newIndex = index >= datas.length - 1 ? 0 : index + 1;
+
+    final isLastItem = index == datas.length - 1;
+    final isOnlyOne = datas.length == 1;
+    final newIndex = isOnlyOne ? 0 : (isLastItem ? index - 1 : index);
+
     await getData(index: newIndex);
+
+    setState(() {
+      index = newIndex;
+    });
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

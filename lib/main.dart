@@ -4,10 +4,17 @@ import 'package:mon/page/create.dart';
 import 'package:mon/page/modify.dart';
 import 'package:mon/page/setting.dart';
 import 'package:mon/page/view.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final dir = await getApplicationDocumentsDirectory();
+  await Hive.initFlutter(dir.path);
+  await Hive.openBox('offline_data');
   await DataApi.init();
+  await DataApi.syncOfflineData();
   runApp(const MyApp());
 }
 
@@ -36,6 +43,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    Connectivity().onConnectivityChanged.listen((status) async {
+      print('[Connectivity] Changed to: $status');
+      if (status != ConnectivityResult.none) {
+        print('[Connectivity] Reconnected. Trying to sync...');
+        await DataApi.init(); // Ensure sheet is ready
+        await DataApi.syncOfflineData(); // Try syncing
+      }
+    });
+  }
+
   int _selectedIndex = 0;
 
   // List of pages for navigation

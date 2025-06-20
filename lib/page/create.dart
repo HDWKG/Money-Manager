@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:mon/api/sheets/data_sheets_api.dart';
 import 'package:mon/widget/user_form_widget.dart';
@@ -17,11 +18,21 @@ class CreateSheetsPage extends StatelessWidget {
           child: SingleChildScrollView(
             child: UserFormWidget(
               onSavedUser: (data) async {
-                final id = await DataApi.getRowCount() + 1;
+                final connectivity = await Connectivity().checkConnectivity();
+                int id;
+
+                if (connectivity == ConnectivityResult.none) {
+                  // Use timestamp or incrementing local ID
+                  id = DateTime.now().millisecondsSinceEpoch;
+                  print('[Create] Offline mode, using timestamp ID: $id');
+                } else {
+                  id = await DataApi.getRowCount() + 1;
+                  print('[Create] Online mode, using sheet row count ID: $id');
+                }
+
                 final newData = data.copy(id: id);
                 await DataApi.insert([newData.toJson()]);
 
-                // Show a dialog to confirm data insertion
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -29,9 +40,7 @@ class CreateSheetsPage extends StatelessWidget {
                     content: const Text('Data inserted successfully!'),
                     actions: [
                       TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
+                        onPressed: () => Navigator.of(context).pop(),
                         child: const Text('OK'),
                       ),
                     ],
@@ -43,11 +52,3 @@ class CreateSheetsPage extends StatelessWidget {
         ),
       );
 }
-  // Future insertData() async {
-  //   final data = [
-  //     User(id: 1, name: "John", email: "John@gmail.com", isBeginner: true),
-  //     User(id: 2, name: "Paul", email: "Paul@gmail.com", isBeginner: false)
-  //   ];
-  //   final jsonData = data.map((data) => data.toJson()).toList();
-  //   await DataApi.insert(jsonData);
-  // }
