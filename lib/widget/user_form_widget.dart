@@ -32,7 +32,7 @@ class _UserFormWidgetState extends State<UserFormWidget> {
     'Stockbit',
     'Bibit'
   ];
-  final List<String> types = ['Expense','Income'];
+  final List<String> types = ['Expense', 'Income'];
   final List<String> categories = [
     'Food & Drinks',
     'Entertainment',
@@ -61,18 +61,30 @@ class _UserFormWidgetState extends State<UserFormWidget> {
           ],
         ),
       );
+  void resetForm() {
+    formKey.currentState?.reset();
+
+    controllerName.clear();
+    controllerTotal.clear();
+
+    setState(() {
+      selectedMethod = methods[0];
+      selectedType = types[0];
+      selectedCategory = categories[0];
+    });
+  }
 
   Widget buildName() => TextFormField(
         controller: controllerName,
-        decoration:
-            const InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
+        decoration: const InputDecoration(
+            labelText: 'Name', border: OutlineInputBorder()),
         validator: (value) =>
             value != null && value.isEmpty ? 'Enter Name' : null,
       );
 
   Widget buildMethod() => DropdownButtonFormField<String>(
-        decoration:
-            const InputDecoration(labelText: 'Method', border: OutlineInputBorder()),
+        decoration: const InputDecoration(
+            labelText: 'Method', border: OutlineInputBorder()),
         value: selectedMethod,
         items: methods.map((method) {
           return DropdownMenuItem(
@@ -85,8 +97,8 @@ class _UserFormWidgetState extends State<UserFormWidget> {
       );
 
   Widget buildType() => DropdownButtonFormField<String>(
-        decoration:
-            const InputDecoration(labelText: 'Type', border: OutlineInputBorder()),
+        decoration: const InputDecoration(
+            labelText: 'Type', border: OutlineInputBorder()),
         value: selectedType,
         items: types.map((type) {
           return DropdownMenuItem(
@@ -119,8 +131,8 @@ class _UserFormWidgetState extends State<UserFormWidget> {
 
     return TextFormField(
       controller: controllerTotal,
-      decoration:
-          const InputDecoration(labelText: 'Total', border: OutlineInputBorder()),
+      decoration: const InputDecoration(
+          labelText: 'Total', border: OutlineInputBorder()),
       keyboardType: TextInputType.number,
       validator: (value) =>
           value != null && value.isEmpty ? 'Enter Total' : null,
@@ -181,6 +193,8 @@ class _UserFormWidgetState extends State<UserFormWidget> {
             );
 
             widget.onSavedUser(data);
+
+            resetForm();
           }
         },
       );
